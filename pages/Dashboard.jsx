@@ -48,6 +48,66 @@ const Dashboard = () => {
         </div>
       </section>
       
+      {/* Classification Statistics */}
+      <section className="exo-card span-4">
+        <h3 className="exo-card__title">Classification Categories</h3>
+        <p className="exo-card__sub" style={{ marginBottom: '16px' }}>
+          Our AI classifies targets into three categories
+        </p>
+        
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div style={{ padding: '12px', background: 'rgba(43, 240, 160, 0.1)', border: '1px solid rgba(43, 240, 160, 0.3)', borderRadius: '10px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2bf0a0" strokeWidth="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 6v6l4 2"/>
+              </svg>
+              <span style={{ fontSize: '14px', fontWeight: '600', color: 'var(--color-accent-3)' }}>
+                Confirmed Exoplanet
+              </span>
+            </div>
+            <p style={{ fontSize: '12px', color: 'var(--color-text-dim)', marginLeft: '28px' }}>
+              Verified planetary system with high confidence
+            </p>
+          </div>
+          
+          <div style={{ padding: '12px', background: 'rgba(0, 209, 255, 0.1)', border: '1px solid rgba(0, 209, 255, 0.3)', borderRadius: '10px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d1ff" strokeWidth="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M9 12l2 2 4-4"/>
+              </svg>
+              <span style={{ fontSize: '14px', fontWeight: '600', color: 'var(--color-accent)' }}>
+                Planetary Candidate
+              </span>
+            </div>
+            <p style={{ fontSize: '12px', color: 'var(--color-text-dim)', marginLeft: '28px' }}>
+              Strong transit signal requiring further validation
+            </p>
+          </div>
+          
+          <div style={{ padding: '12px', background: 'rgba(255, 77, 109, 0.1)', border: '1px solid rgba(255, 77, 109, 0.3)', borderRadius: '10px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff4d6d" strokeWidth="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="15" y1="9" x2="9" y2="15"/>
+                <line x1="9" y1="9" x2="15" y2="15"/>
+              </svg>
+              <span style={{ fontSize: '14px', fontWeight: '600', color: 'var(--color-error)' }}>
+                False Positive
+              </span>
+            </div>
+            <p style={{ fontSize: '12px', color: 'var(--color-text-dim)', marginLeft: '28px' }}>
+              Not a planet - stellar activity or instrument noise
+            </p>
+          </div>
+        </div>
+        
+        <Link to="/analyze" className="exo-btn accent" style={{ width: '100%', marginTop: '16px' }}>
+          Start Classification
+        </Link>
+      </section>
+      
       {/* Model Status */}
       <section className="exo-card span-4">
         <h3 className="exo-card__title">Model Status</h3>
@@ -64,8 +124,91 @@ const Dashboard = () => {
         </Link>
       </section>
       
+      {/* Classification Distribution */}
+      <section className="exo-card span-4">
+        <h3 className="exo-card__title">Classification Distribution</h3>
+        <p className="exo-card__sub" style={{ marginBottom: '16px' }}>
+          Recent analysis results breakdown
+        </p>
+        
+        {(() => {
+          const confirmed = recentRuns.filter(r => r.prediction === 'Confirmed').length;
+          const candidate = recentRuns.filter(r => r.prediction === 'Candidate').length;
+          const notPlanet = recentRuns.filter(r => r.prediction === 'Not a Planet').length;
+          const total = recentRuns.length;
+          
+          return (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
+                  <span style={{ fontSize: '13px', color: 'var(--color-accent-3)', fontWeight: '500' }}>Confirmed</span>
+                  <span className="tabular-nums" style={{ fontSize: '13px', color: 'var(--color-text)' }}>
+                    {confirmed} ({total > 0 ? ((confirmed / total) * 100).toFixed(0) : 0}%)
+                  </span>
+                </div>
+                <div style={{ background: '#0e1430', borderRadius: '12px', height: '8px', overflow: 'hidden' }}>
+                  <div style={{ 
+                    width: `${total > 0 ? (confirmed / total) * 100 : 0}%`, 
+                    height: '100%', 
+                    background: 'var(--color-accent-3)', 
+                    borderRadius: '12px',
+                    transition: 'width 0.3s ease',
+                    boxShadow: '0 0 12px var(--glow-green)'
+                  }} />
+                </div>
+              </div>
+              
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
+                  <span style={{ fontSize: '13px', color: 'var(--color-accent)', fontWeight: '500' }}>Candidate</span>
+                  <span className="tabular-nums" style={{ fontSize: '13px', color: 'var(--color-text)' }}>
+                    {candidate} ({total > 0 ? ((candidate / total) * 100).toFixed(0) : 0}%)
+                  </span>
+                </div>
+                <div style={{ background: '#0e1430', borderRadius: '12px', height: '8px', overflow: 'hidden' }}>
+                  <div style={{ 
+                    width: `${total > 0 ? (candidate / total) * 100 : 0}%`, 
+                    height: '100%', 
+                    background: 'var(--color-accent)', 
+                    borderRadius: '12px',
+                    transition: 'width 0.3s ease',
+                    boxShadow: '0 0 12px var(--glow-cyan)'
+                  }} />
+                </div>
+              </div>
+              
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
+                  <span style={{ fontSize: '13px', color: 'var(--color-error)', fontWeight: '500' }}>False Positive</span>
+                  <span className="tabular-nums" style={{ fontSize: '13px', color: 'var(--color-text)' }}>
+                    {notPlanet} ({total > 0 ? ((notPlanet / total) * 100).toFixed(0) : 0}%)
+                  </span>
+                </div>
+                <div style={{ background: '#0e1430', borderRadius: '12px', height: '8px', overflow: 'hidden' }}>
+                  <div style={{ 
+                    width: `${total > 0 ? (notPlanet / total) * 100 : 0}%`, 
+                    height: '100%', 
+                    background: 'var(--color-error)', 
+                    borderRadius: '12px',
+                    transition: 'width 0.3s ease',
+                    boxShadow: '0 0 12px var(--glow-red)'
+                  }} />
+                </div>
+              </div>
+              
+              <div style={{ marginTop: '8px', padding: '12px', background: '#0b1120', borderRadius: '10px', textAlign: 'center' }}>
+                <p style={{ fontSize: '11px', color: 'var(--color-text-dim)', marginBottom: '4px' }}>Total Analyzed</p>
+                <p className="tabular-nums" style={{ fontSize: '28px', fontWeight: '700', color: 'var(--color-accent)' }}>
+                  {total}
+                </p>
+              </div>
+            </div>
+          );
+        })()}
+      </section>
+      
       {/* Recent Runs */}
-      <section className="exo-card span-12">
+      <section className="exo-card span-8">
         <h3 className="exo-card__title">Recent Runs</h3>
         {recentRuns.length === 0 ? (
           <div className="exo-empty">
@@ -106,14 +249,43 @@ const Dashboard = () => {
       {/* About Section */}
       <section className="exo-card span-12">
         <h3 className="exo-card__title">About This Project</h3>
-        <p className="exo-card__sub">
+        <p className="exo-card__sub" style={{ marginBottom: '16px' }}>
           ExoScope is built for NASA Space Apps 2025 Challenge: "A World Away: Hunting for Exoplanets with AI". 
           This platform uses machine learning to classify exoplanet candidates from light curve data collected by 
-          Kepler, K2, and TESS missions. The AI models analyze transit signals, periodograms, and various statistical 
-          features to identify potential exoplanets with high accuracy.
+          Kepler, K2, and TESS missions.
         </p>
-        <Link to="/about" className="exo-btn ghost" style={{ marginTop: '12px' }}>
-          Learn More
+        
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px', marginBottom: '16px' }}>
+          <div style={{ padding: '16px', background: '#0b1120', borderRadius: '10px', borderLeft: '3px solid var(--color-accent-3)' }}>
+            <h4 style={{ fontSize: '14px', fontWeight: '600', color: 'var(--color-accent-3)', marginBottom: '8px' }}>
+              ✓ Confirmed Exoplanets
+            </h4>
+            <p style={{ fontSize: '13px', color: 'var(--color-text-dim)', lineHeight: '1.5' }}>
+              High-confidence detections with validated transit signals, consistent period, and ruled out false positive scenarios.
+            </p>
+          </div>
+          
+          <div style={{ padding: '16px', background: '#0b1120', borderRadius: '10px', borderLeft: '3px solid var(--color-accent)' }}>
+            <h4 style={{ fontSize: '14px', fontWeight: '600', color: 'var(--color-accent)', marginBottom: '8px' }}>
+              ? Planetary Candidates
+            </h4>
+            <p style={{ fontSize: '13px', color: 'var(--color-text-dim)', lineHeight: '1.5' }}>
+              Strong transit signals requiring additional observations or analysis to rule out stellar activity or binary star systems.
+            </p>
+          </div>
+          
+          <div style={{ padding: '16px', background: '#0b1120', borderRadius: '10px', borderLeft: '3px solid var(--color-error)' }}>
+            <h4 style={{ fontSize: '14px', fontWeight: '600', color: 'var(--color-error)', marginBottom: '8px' }}>
+              ✗ False Positives
+            </h4>
+            <p style={{ fontSize: '13px', color: 'var(--color-text-dim)', lineHeight: '1.5' }}>
+              Non-planetary phenomena such as eclipsing binaries, stellar variability, or instrument artifacts.
+            </p>
+          </div>
+        </div>
+        
+        <Link to="/about" className="exo-btn ghost">
+          Learn More About Our AI Models
         </Link>
       </section>
     </main>
