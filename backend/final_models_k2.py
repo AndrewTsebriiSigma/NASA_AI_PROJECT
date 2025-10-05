@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import roc_curve
 
 # Load and preprocess data
-df = pd.read_csv('/Users/egor/Documents/GitHub/NASA_AI_PROJECT/backend/data/k2.csv')
+df = pd.read_csv('data/k2.csv')
 
 def encode_disposition(x):
     if x == "CONFIRMED":
