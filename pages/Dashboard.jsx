@@ -1,8 +1,23 @@
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import useStore from '../store/useStore';
+import { getModels } from '../lib/api';
 
 const Dashboard = () => {
-  const { recentRuns } = useStore();
+  const { recentRuns, selectedModel } = useStore();
+  const [models, setModels] = useState([]);
+  const [activeModelData, setActiveModelData] = useState(null);
+  
+  useEffect(() => {
+    // Fetch models on mount
+    getModels().then(setModels);
+  }, []);
+  
+  useEffect(() => {
+    // Find the active model data
+    const model = models.find(m => m.id === selectedModel);
+    setActiveModelData(model);
+  }, [models, selectedModel]);
   
   return (
     <main className="exo-main">
@@ -114,13 +129,13 @@ const Dashboard = () => {
         <div style={{ padding: '12px', background: '#0b1120', borderRadius: '10px', marginBottom: '12px' }}>
           <p style={{ fontSize: '12px', color: 'var(--color-text-dim)', marginBottom: '4px' }}>Active Model</p>
           <p style={{ fontSize: '16px', fontWeight: '600', color: 'var(--color-text)' }}>
-            {recentRuns.length > 0 ? 'Random Forest (K2)' : '--'}
+            {activeModelData ? activeModelData.name : 'Loading...'}
           </p>
         </div>
         <div style={{ padding: '12px', background: '#0b1120', borderRadius: '10px' }}>
           <p style={{ fontSize: '12px', color: 'var(--color-text-dim)', marginBottom: '4px' }}>F1 Score</p>
           <p className="tabular-nums" style={{ fontSize: '24px', fontWeight: '600', color: 'var(--color-accent-3)' }}>
-            {recentRuns.length > 0 ? '--' : '--'}
+            {activeModelData ? activeModelData.metrics.f1.toFixed(2) : '--'}
           </p>
         </div>
         <Link to="/models" className="exo-btn ghost" style={{ width: '100%', marginTop: '12px' }}>

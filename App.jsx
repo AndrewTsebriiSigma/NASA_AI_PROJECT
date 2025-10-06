@@ -70,7 +70,7 @@ function App() {
           <Route path="/analyze" element={<Analyze />} />
           <Route path="/models" element={<Models />} />
           <Route path="/about" element={<About />} />
-          <Route path="/settings" element={<Settings />} />
+          {/* <Route path="/settings" element={<Settings />} /> */}
         </Routes>
       </div>
       
