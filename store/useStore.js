@@ -24,7 +24,7 @@ const useStore = create((set, get) => ({
   setSearchStatus: (status) => set({ searchStatus: status }),
   
   // Model State
-  selectedModel: 'cnn_classifier',
+  selectedModel: 'random_forest_k2',
   threshold: 0.5,
   isProcessing: false,
   
@@ -54,7 +54,7 @@ const useStore = create((set, get) => ({
   addLog: (log) => set((state) => ({
     logs: [
       {
-        id: Date.now(),
+        id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`, // Unique ID
         time: new Date().toLocaleTimeString(),
         ...log
       },

@@ -8,7 +8,7 @@ const Dashboard = () => {
     <main className="exo-main">
       {/* Welcome Section */}
       <section className="exo-card span-12">
-        <h2 className="exo-card__title">Welcome to ExoScope</h2>
+        <h2 className="exo-card__title">Welcome to Searching Lucerna</h2>
         <p className="exo-card__sub">
           AI-powered exoplanet classification using Kepler, K2, and TESS light curve data
         </p>
@@ -113,11 +113,15 @@ const Dashboard = () => {
         <h3 className="exo-card__title">Model Status</h3>
         <div style={{ padding: '12px', background: '#0b1120', borderRadius: '10px', marginBottom: '12px' }}>
           <p style={{ fontSize: '12px', color: 'var(--color-text-dim)', marginBottom: '4px' }}>Active Model</p>
-          <p style={{ fontSize: '16px', fontWeight: '600', color: 'var(--color-text)' }}>CNN Classifier</p>
+          <p style={{ fontSize: '16px', fontWeight: '600', color: 'var(--color-text)' }}>
+            {recentRuns.length > 0 ? 'Random Forest (K2)' : '--'}
+          </p>
         </div>
         <div style={{ padding: '12px', background: '#0b1120', borderRadius: '10px' }}>
           <p style={{ fontSize: '12px', color: 'var(--color-text-dim)', marginBottom: '4px' }}>F1 Score</p>
-          <p className="tabular-nums" style={{ fontSize: '24px', fontWeight: '600', color: 'var(--color-accent-3)' }}>0.92</p>
+          <p className="tabular-nums" style={{ fontSize: '24px', fontWeight: '600', color: 'var(--color-accent-3)' }}>
+            {recentRuns.length > 0 ? '--' : '--'}
+          </p>
         </div>
         <Link to="/models" className="exo-btn ghost" style={{ width: '100%', marginTop: '12px' }}>
           View All Models

@@ -18,9 +18,6 @@ const Footer = () => {
               MAST
             </a>
           </li>
-          <li>
-            <span className="exo-footer__link">© 2025 ExoScope</span>
-          </li>
         </ul>
       </nav>
     </footer>

@@ -33,7 +33,10 @@ const Uploader = () => {
       
       setUploadedFile(file);
       setParsedData(parsed);
-      addLog({ type: 'success', message: `Successfully parsed ${parsed.data.length} rows` });
+      const dataTypeMsg = validation.dataType === 'lightcurve' 
+        ? 'light curve data' 
+        : 'exoplanet parameter data';
+      addLog({ type: 'success', message: `Successfully parsed ${parsed.data.length} rows of ${dataTypeMsg}` });
     } catch (err) {
       setError(err.message);
       addLog({ type: 'error', message: err.message });
@@ -77,11 +80,11 @@ const Uploader = () => {
         </svg>
         
         <p className="exo-uploader__text">
-          Drop your light curve CSV here or click to browse
+          Drop your CSV file here or click to browse
         </p>
         
         <p className="exo-uploader__hint">
-          Required columns: time, flux (optional: flux_err)
+          Accepts: Light curves (time, flux) or Exoplanet parameters (pl_name, st_mass, etc.)
         </p>
         
         <input 

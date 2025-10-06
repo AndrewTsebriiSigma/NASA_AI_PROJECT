@@ -10,7 +10,7 @@ const Header = () => {
         <svg className="exo-header__logo-icon" viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5zm0 18.5c-4.28-1.04-7-5.29-7-9.5V8.32l7-3.82 7 3.82V11c0 4.21-2.72 8.46-7 9.5zm-1-7.5h2v2h-2v-2zm0-6h2v5h-2V7z"/>
         </svg>
-        <h1 className="exo-header__title">ExoScope</h1>
+        <h1 className="exo-header__title">Searching Lucerna</h1>
       </div>
       
       <div className="exo-header__actions">

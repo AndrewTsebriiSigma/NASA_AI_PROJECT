@@ -56,7 +56,7 @@ const Models = () => {
       {/* Confusion Matrix Placeholder */}
       <section className="exo-card span-8">
         <h3 className="exo-card__title">Confusion Matrix</h3>
-        <p className="exo-card__sub">Model performance across different classes</p>
+        <p className="exo-card__sub">Model performance across different classes (run classification to see results)</p>
         
         <div style={{ marginTop: '20px' }}>
           <div className="exo-table">
@@ -72,21 +72,21 @@ const Models = () => {
               <tbody>
                 <tr>
                   <td style={{ fontWeight: '600' }}>Confirmed</td>
-                  <td className="tabular-nums" style={{ color: 'var(--color-accent-3)' }}>156</td>
-                  <td className="tabular-nums">12</td>
-                  <td className="tabular-nums">3</td>
+                  <td className="tabular-nums" style={{ color: 'var(--color-accent-3)' }}>--</td>
+                  <td className="tabular-nums">--</td>
+                  <td className="tabular-nums">--</td>
                 </tr>
                 <tr>
                   <td style={{ fontWeight: '600' }}>Candidate</td>
-                  <td className="tabular-nums">8</td>
-                  <td className="tabular-nums" style={{ color: 'var(--color-accent)' }}>241</td>
-                  <td className="tabular-nums">15</td>
+                  <td className="tabular-nums">--</td>
+                  <td className="tabular-nums" style={{ color: 'var(--color-accent)' }}>--</td>
+                  <td className="tabular-nums">--</td>
                 </tr>
                 <tr>
                   <td style={{ fontWeight: '600' }}>Not a Planet</td>
-                  <td className="tabular-nums">2</td>
-                  <td className="tabular-nums">11</td>
-                  <td className="tabular-nums" style={{ color: 'var(--color-error)' }}>892</td>
+                  <td className="tabular-nums">--</td>
+                  <td className="tabular-nums">--</td>
+                  <td className="tabular-nums" style={{ color: 'var(--color-error)' }}>--</td>
                 </tr>
               </tbody>
             </table>
@@ -104,7 +104,7 @@ const Models = () => {
               Training Dataset
             </div>
             <div style={{ fontSize: '14px', fontWeight: '500', color: 'var(--color-text)' }}>
-              Kepler + K2 + TESS
+              K2 + TESS Missions
             </div>
           </div>
           
@@ -113,7 +113,7 @@ const Models = () => {
               Total Samples
             </div>
             <div className="tabular-nums" style={{ fontSize: '14px', fontWeight: '500', color: 'var(--color-text)' }}>
-              15,340
+              K2: 9,564 | TESS: 5,776
             </div>
           </div>
           
@@ -131,7 +131,7 @@ const Models = () => {
               Validation Method
             </div>
             <div style={{ fontSize: '14px', fontWeight: '500', color: 'var(--color-text)' }}>
-              5-Fold CV
+              Train/Test Split (80/20)
             </div>
           </div>
         </div>
